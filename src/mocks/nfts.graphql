@@ -1,0 +1,143 @@
+[CREATE NFT]
+mutation {
+  createNft(createNftInput: {
+    url: "http://test.com"
+    title: "Grand Sample"
+    description: "testing only"
+    category: "Pork"
+    price: 200
+  }) {
+    id
+    url
+    title
+    description
+    category
+    price
+  }
+}
+
+[View NFT]
+query {
+  getNft(id: 1) {
+    id
+    url
+    title
+    description
+    category
+    price
+    ownerId
+    owner {
+      id
+      username
+    }
+    comments {
+      id
+      comment
+    }
+  }
+}
+
+{GET NFT LIST}
+query {
+  getNftList(pageNumber: 1) {
+    id
+    url
+    title
+    description
+    category
+    price
+    ownerId
+    owner {
+      id
+      username
+    }
+    comments {
+      id
+      comment
+    }
+  }
+}
+
+[BUY NFT]
+mutation {
+  buyNft(id: 1) {
+    id
+    url
+    title
+    description
+    category
+    price
+    ownerId
+    owner {
+      id
+      username
+    }
+    comments {
+      id
+      comment
+    }
+  }
+}
+
+[DELETE NFT]
+mutation {
+  deleteNft(id: 1) {
+    id
+    url
+    title
+    description
+    category
+    price
+    ownerId
+    owner {
+      id
+      username
+    }
+    comments {
+      id
+      comment
+    }
+  }
+}
+
+[RECOVER NFT]
+mutation {
+  recoverNft(id: 1) {
+    id
+    url
+    title
+    description
+    category
+    price
+    ownerId
+    owner {
+      id
+      username
+    }
+    comments {
+      id
+      comment
+    }
+  }
+}
+
+[SEARCH NFT]
+query {
+  searchNft(search: { price: 200 }) {
+    id
+    url
+    title
+    description
+    category
+    price
+    ownerId
+    owner {
+      id
+      username
+    }
+    comments {
+      id
+      comment
+    }
+  }
+}

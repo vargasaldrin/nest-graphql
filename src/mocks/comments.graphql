@@ -1,0 +1,39 @@
+[CREATE COMMENT]
+mutation {
+  createComment(createCommentsInput: {
+    comment: "This is a sample"
+    nftId: 1
+  }) {
+    id
+    comment
+    userId
+    user{
+      id
+      username
+    }
+    nftId
+    nft {
+      id
+      title
+    }
+  }
+}
+
+[VIEW COMMENTS]
+query {
+  viewCommentList {
+    id
+    comment
+    userId
+    user{
+      id
+      username
+    }
+    nftId
+    nft {
+      id
+      title
+    }
+  }
+}
+

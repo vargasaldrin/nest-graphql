@@ -2,36 +2,141 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type UserSetting {
+type Comment {
+  id: Int!
+  comment: String!
+  nftId: Int!
   userId: Int!
-  receiveNotifications: Boolean!
-  receiveEmails: Boolean!
+  user: User
+  nft: Nft
+}
+
+type Nft {
+  id: Int!
+  url: String!
+  title: String!
+  description: String!
+  category: String!
+  price: Int!
+  ownerId: Int!
+  owner: User!
+  comments: [Comment!]
 }
 
 type User {
   id: Int!
   username: String!
-  displayName: String
-  settings: UserSetting
+  firstName: String!
+  lastName: String
+  admin: Boolean!
+  softDelete: Boolean!
+  nfts: [Nft!]
+  comments: [Comment!]
+}
+
+type UserBalance {
+  balance: Int!
+}
+
+type LoginResponse {
+  access_token: String!
+  user: User!
 }
 
 type Query {
+  loginUser(loginUserInput: LoginUserInput!): LoginResponse!
   getUserById(id: Int!): User
+  getBalance: UserBalance
   getUsers: [User!]!
+  whoAmI: User!
+  searchNft(search: NftSearchInput!, sort: NftSortInput, paginate: PaginateNftInput! = {offSet: 0, pageNumber: 1, itemLimit: 10}): [Nft!]!
+  getNftList(pageNumber: Int! = 1): [Nft!]!
+  getNft(id: Int!): Nft!
+  viewCommentList(pageNumber: Int! = 1): [Comment!]!
+}
+
+input LoginUserInput {
+  username: String!
+  password: String!
+}
+
+input NftSearchInput {
+  url: String
+  title: String
+  description: String
+  category: String
+  price: Int
+}
+
+input NftSortInput {
+  field: String
+  order: SortType
+}
+
+"""choose sort direction"""
+enum SortType {
+  ASCENDING
+  DESCENDING
+}
+
+input PaginateNftInput {
+  offSet: Int = 0
+  pageNumber: Int = 1
+  itemLimit: Int = 1
 }
 
 type Mutation {
   createUser(createUserData: CreateUserInput!): User!
-  createUserSettings(createUserSettingsData: CreateUserSettingsInput!): UserSetting!
+  updateUserProfile(updateUserInput: UpdateUserInput!): User!
+  deleteUser(id: Int!): User!
+  recoverUser(id: Int!): User!
+  buyNft(id: Int!): Nft!
+  createNft(createNftInput: CreateNftInput!): Nft!
+  deleteNft(id: Float!): Nft!
+  recoverNft(id: Float!): Nft!
+  updateNft(id: Float!, updateNftInput: UpdateNftInput!): Nft!
+  removeNft(id: Int!): Nft!
+  addComment(createCommentsInput: CreateCommentsInput!): Comment!
+  updateComment(id: Float!, comment: String!): Comment!
+  removeComment(id: Int!): Comment!
 }
 
 input CreateUserInput {
   username: String!
-  displayName: String
+  password: String!
+  firstName: String!
+  lastName: String
+  admin: Boolean! = false
+  softDelete: Boolean! = false
+  balance: Int! = 10000
 }
 
-input CreateUserSettingsInput {
-  userId: Int!
-  receiveNotifications: Boolean = false
-  receiveEmails: Boolean = false
+input UpdateUserInput {
+  firstName: String
+  lastName: String
+  balance: Float
+}
+
+input CreateNftInput {
+  url: String!
+  title: String!
+  description: String!
+  category: String!
+  price: Int! = 100
+  softDelete: Boolean = false
+}
+
+input UpdateNftInput {
+  url: String
+  title: String
+  description: String
+  category: String
+  price: Int = 100
+  softDelete: Boolean = false
+  ownerId: Int
+}
+
+input CreateCommentsInput {
+  comment: String!
+  nftId: Int!
 }

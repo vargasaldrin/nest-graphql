@@ -1,0 +1,116 @@
+
+[CREATE USER]
+mutation {
+  createUser(
+    createUserData: {
+      username: "sample1"
+      password: "test123"
+      firstName: "First"
+      lastName: "Last"
+      admin: true
+      softDelete: false
+    }
+  ) {
+    id
+    username
+    firstName
+    lastName
+    admin
+    softDelete
+    nfts {
+      id
+      title
+    }
+    comments {
+      id
+      
+    }
+  }
+}
+
+[LOGIN USER]
+query {
+  loginUser(
+    loginUserInput: {
+    username: "sample1"
+    password: "test123"
+  }){
+    access_token
+    user {
+      id
+      username
+      firstName
+      lastName
+      admin
+      softDelete
+      nfts {
+      id
+      title
+      }
+      comments {
+        id
+        
+      }
+    }
+  }
+}
+
+[GET USERS]
+query {
+  getUsers {
+    id
+    username
+    firstName
+    lastName
+    admin
+    softDelete
+  }
+}
+
+[WHO AM I]
+query {
+  whoAmI {
+    id
+    username
+    firstName
+    lastName
+    admin
+    softDelete
+  }
+}
+
+[GET USER BY ID]
+query {
+  getUserById(userId: 1) {
+    id
+    username
+    firstName
+    lastName
+    admin
+    softDelete
+  }
+}
+
+[GET BALANCE]
+query {
+  getBalance {
+    balance
+  }
+}
+
+[UPDATE USER PROFILE]
+mutation {
+  updateUserProfile(
+    updateUserInput: {
+      firstName: "Firstssss"
+      lastName: "Lastttts"
+    }
+  ) {
+    id
+    username
+    firstName
+    lastName
+    admin
+    softDelete
+  }
+}
